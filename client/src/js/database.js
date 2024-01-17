@@ -8,7 +8,6 @@ const initdb = async () =>
         return;
       }
       db.createObjectStore("jate", { keyPath: "id", autoIncrement: true });
-      db.add("jate", "J.A.T.E")
       console.log("jate database created");
     },
   });
