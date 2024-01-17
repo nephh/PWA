@@ -8,17 +8,20 @@ const initdb = async () =>
         return;
       }
       db.createObjectStore("jate", { keyPath: "id", autoIncrement: true });
+      db.add("jate", "J.A.T.E")
       console.log("jate database created");
     },
   });
 
 // TODO: Add logic to a method that accepts some content and adds it to the database
 export const putDb = async (content) => {
-  console.log("Post to the database");
+  console.log("PUT to the database");
+  console.log(content);
   const jateDb = await openDB("jate", 1);
+  console.log(jateDb);
   const tx = jateDb.transaction("jate", "readwrite");
   const store = tx.objectStore("jate");
-  const request = store.add({ content: content });
+  const request = store.put({ id: 0, value: content });
   const result = await request;
   console.log("Data saved to the database", result);
 };
@@ -31,8 +34,8 @@ export const getDb = async () => {
   const store = tx.objectStore("jate");
   const request = store.getAll();
   const result = await request;
-  console.log("result.content", result);
-  return result;
+  console.log("result", result[0].value);
+  return result[0].value;
 };
 
 initdb();
